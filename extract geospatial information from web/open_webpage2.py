@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Created on Mon Aug 21 09:48:24 2017
 
@@ -43,7 +43,7 @@ english_google_url= "https://{domain}/search?hl=en&q={query}&btnG=Search&gbv=1&n
 def open_english_google(query,num):
     html=''
     load_user_agent()
-    load_proxy_ip()
+    #load_proxy_ip()
     load_google_domain()
     sleeptime =  random.randint(15, 30)
     time.sleep(sleeptime)
@@ -73,7 +73,7 @@ def open_english_google(query,num):
 def open_url(url,filename):
     html=''
     load_user_agent()
-    load_proxy_ip()
+    #load_proxy_ip()
     sleeptime =  random.randint(15, 30)
     time.sleep(sleeptime)
     while True:
