@@ -14,11 +14,9 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 Houston_box='houston,-95.41870,29.71465,-95.41464,29.71930'
-New_York_box='New York,-74.0119,40.7253,-74.0044,40.7303'
 Chicago_box='Chicago,-87.65490,41.88257,-87.64660,41.88615'
-San_Francisco_box='San Francisco,-122.42700,37.77525,-122.42013,37.77920'
 error_response='You requested too many nodes (limit is 50000). Either request a smaller area, or use planet.osm'
-box=[Houston_box,New_York_box,Chicago_box,San_Francisco_box]
+box=[Houston_box,Chicago_box]
 
 def download_place_inf(left,bottom,right,top):
     inf=[]

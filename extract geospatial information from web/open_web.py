@@ -13,7 +13,7 @@ user_agents = list()
 proxy_ip_address=list()
 google_domains=list()
 
-#加载用户头
+#load user agent
 def load_user_agent():
     fp = open('user_agents', 'r')
     line=fp.readline().strip('\n')
@@ -21,7 +21,7 @@ def load_user_agent():
         user_agents.append(line)
         line = fp.readline().strip('\n')
     fp.close
-#加载代理ip
+#load proxy ip
 def load_proxy_ip():
     fp = open('proxy_ip_address', 'r')
     line=fp.readline().strip('\n')
@@ -29,7 +29,7 @@ def load_proxy_ip():
         proxy_ip_address.append(line)
         line = fp.readline().strip('\n')
     fp.close
-#加载google域名集
+#load google domain names
 def load_google_domain():
     fp = open('google_domain', 'r')
     line=fp.readline().strip('\n')
@@ -40,7 +40,7 @@ def load_google_domain():
 
 english_google_url= "http://{domain}/search?hl=en&q={query}&btnG=Search&gbv=1&num={num}"
 
-#打开url并存入文件
+#access google search engine
 def open_english_google(query,num):
     html=''
     load_user_agent()
@@ -69,6 +69,7 @@ def open_english_google(query,num):
             continue
     return html
 
+#access normal web
 def open_normal_web(url):
     html=''
     load_user_agent()

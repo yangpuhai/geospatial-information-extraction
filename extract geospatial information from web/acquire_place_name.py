@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Dec 27 15:40:21 2017
-《《《《《《调用函数请先调用load_file_data，再调用其它函数》》》》》》
+《《《《《《 call the function load_file_data first, and then call other functions 》》》》》》
 @author: yangpuhai
 """
 import sys
@@ -26,14 +26,13 @@ state=[]
 filter_words=[]
 
 
-#打开文件
 def open_file(path):
     f1=open(path,'r')
     data=[s.strip('\n') for s in f1.readlines()]
     f1.close()
     return data
 
-#设定各个文件夹的路径,初始化数据
+#Initialize the data
 def load_file_data(main_dir1,city_file1,state_file1,filter_words_file1):
     global main_dir
     main_dir=main_dir1
@@ -51,7 +50,7 @@ def load_file_data(main_dir1,city_file1,state_file1,filter_words_file1):
     filter_words=open_file(filter_words_file)
     
 
-#提取title的可能关键词，以便下一步联合搜索
+#extract potential place name
 def new_acquire_titles_key_word():
     city_name=city[0]
     if main_dir!='':
@@ -74,7 +73,7 @@ def new_acquire_titles_key_word():
             writer.writerow(data)
             f1.close()
 
-#联合搜索名称关键字和地址，得到更精确的名称,并提取搜索时可能出现的google地图数据
+#extract correct place name
 def new_acquire_place_name():
     state_name=state[0]
     if main_dir!='':
@@ -108,7 +107,7 @@ def new_acquire_place_name():
                             writer.writerow(addr_name_data)
                             f1.close()
 
-#合并相同的名称，过滤一部分非地点名称，输出最终结果
+#Merge the same name, filter the non-place name, and output the final result
 def new_combine_place_name():
     if main_dir!='':
         parten1=re.compile(r'[^a-zA-Z0-9]')

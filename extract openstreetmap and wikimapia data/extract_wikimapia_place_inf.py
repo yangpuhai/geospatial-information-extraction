@@ -13,10 +13,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 Houston_box='houston,-95.41870,29.71465,-95.41464,29.71930'
-New_York_box='New York,-74.0119,40.7253,-74.0044,40.7303'
 Chicago_box='Chicago,-87.65490,41.88257,-87.64660,41.88615'
-San_Francisco_box='San Francisco,-122.42700,37.77525,-122.42013,37.77920'
-box=[Houston_box,New_York_box,Chicago_box,San_Francisco_box]
+box=[Houston_box,Chicago_box]
 
 base_url='http://api.wikimapia.org/?function=box&bbox=%s,%s,%s,%s&format=xml&key=8A006943-3013DFAE-AB18C1B2-288DEE68-6101AAA6-4DAE7C05-25836D72-6695F122&count=%s&page=%s'
 

@@ -11,6 +11,7 @@ from open_webpage2 import *
 
 base_url= 'https://www.zillow.com/homes/for_sale/globalrelevanceex_sort/35.146862,-116.578675,32.893425,-120.0943_rect/7_zm'
 
+#extract addresses from real-estate wensite 'zillow'
 def extract_zillow(filename):
     list1=[]
     html_file = open(filename,'r')
@@ -21,7 +22,8 @@ def extract_zillow(filename):
         if re.match('^[0-9]',address):
             list1.append(address)
     return list1
-    
+
+#acquire real-estate addresses
 def acquire_real_estate_address(base_url,num,filename):
     acquired_page=0
     page=0
@@ -42,6 +44,7 @@ def acquire_real_estate_address(base_url,num,filename):
                 break
     f.close()
 
+
 def extractUrl(href):
     url = href
     pattern = re.compile(r'(http[s]?://[^&]+)&', re.U | re.M)
@@ -55,6 +58,7 @@ def extractUrl(href):
         url=url[length:]
     return url
 
+#acquire real-estate urls
 def acquire_real_estate_webpage(address_file,webpage_url,webpage_data_dir):
     f1=open(address_file,'r')
     address=f1.readlines()

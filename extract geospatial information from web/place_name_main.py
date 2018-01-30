@@ -6,7 +6,7 @@ Created on Wed Dec 27 16:38:09 2017
 """
 import acquire_place_name as apn
 
-test_region_dir=['San Francisco','Chicago','New York','Houston']
+test_region_dir=['Chicago','Houston']
 
 filter_words_file='filter_words'
 

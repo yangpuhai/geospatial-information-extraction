@@ -9,13 +9,12 @@ import requests
 from bs4 import BeautifulSoup
 
 Houston_box='houston,-95.41870,29.71465,-95.41464,29.71930'
-New_York_box='New York,-74.0119,40.7253,-74.0044,40.7303'
 Chicago_box='Chicago,-87.65490,41.88257,-87.64660,41.88615'
-San_Francisco_box='San Francisco,-122.42700,37.77525,-122.42013,37.77920'
-box=[Houston_box,New_York_box,Chicago_box,San_Francisco_box]
+box=[Houston_box,Chicago_box]
 
 error_response='You requested too many nodes (limit is 50000). Either request a smaller area, or use planet.osm'
 
+#extract street names,ciry name,state name,country name in openstreetmap based on Latitude and longitude
 def download_street_name(left,bottom,right,top):
     street=[]
     city=[]
@@ -77,6 +76,7 @@ def download_street_name(left,bottom,right,top):
                     country.append(cou)
     return [[street,city,state,country]]
 
+#save data extracted from openstreetmap in our experimental area
 def save_street_inf(box):
     for b in box:
         bb=b.split(',')
@@ -92,24 +92,64 @@ def save_street_inf(box):
         f2=open(name+'/city','a')
         f3=open(name+'/state','a')
         f4=open(name+'/country','a')
+        street_list=[]
+        city_list=[]
+        state_list=[]
+        country_list=[]
         for n in inf:
             for s in n[0]:
-                f1.write(s)
-                f1.write('\n')
+                street_list.append(s)
             for c in n[1]:
-                f2.write(c)
-                f2.write('\n')
+                city_list.append(c)
             for st in n[2]:
-                f3.write(st)
-                f3.write('\n')
+                state_list.append(st)
             for co in n[3]:
-                f4.write(co)
-                f4.write('\n')
-            f1.close()
-            f2.close()
-            f3.close()
-            f4.close()
-            
+                country_list.append(co)
+        while len(city_list)==0:
+            left-=0.001
+            bottom-=0.001
+            right+=0.001
+            top+=0.001
+            inf=download_street_name(left,bottom,right,top)
+            for n in inf:
+                for c in n[1]:
+                    city_list.append(c)
+        while len(state_list)==0:
+            left-=0.001
+            bottom-=0.001
+            right+=0.001
+            top+=0.001
+            inf=download_street_name(left,bottom,right,top)
+            for n in inf:
+                for st in n[2]:
+                    state_list.append(st)
+        while len(country_list)==0:
+            left-=0.001
+            bottom-=0.001
+            right+=0.001
+            top+=0.001
+            inf=download_street_name(left,bottom,right,top)
+            for n in inf:
+                for co in n[3]:
+                    country_list.append(co)
+        for s in street_list:
+            f1.write(s)
+            f1.write('\n')
+        for c in city_list:
+            f2.write(c)
+            f2.write('\n')
+        for st in state_list:
+            f3.write(st)
+            f3.write('\n')
+        for co in country_list:
+            f4.write(co)
+            f4.write('\n')
+        f1.close()
+        f2.close()
+        f3.close()
+        f4.close()
+
+#main function
 if __name__ == '__main__':
     save_street_inf(box)
 

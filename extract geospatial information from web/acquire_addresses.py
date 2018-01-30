@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Dec 12 10:26:15 2017
-《《《《《《调用函数请先调用load_file_data，再调用其它函数》》》》》》
+《《《《《《 call the function load_file_data first, and then call other functions 》》》》》》
 @author: yangpuhai
 """
 import csv
@@ -27,7 +27,7 @@ types=[]
 street=[]
 city=[]
 
-#多线程爬虫的函数主体
+#The main body of a multithreaded function
 class CustomTask: 
     def __init__(self): 
         self._result = [] 
@@ -37,7 +37,7 @@ class CustomTask:
     def get_result(self):
         return self._result
 
-#提取google搜索结果中href标签中的url
+#Retrieve the url from the href tag in google search results
 def extract_url(href):
     url = href
     pattern = re.compile(r'(http[s]?://[^&]+)&', re.U | re.M)
@@ -51,14 +51,14 @@ def extract_url(href):
         url=url[length:]
     return url
 
-#打开文件
+#open file
 def open_file(path):
     f1=open(path,'r')
     data=[s.strip('\n') for s in f1.readlines()]
     f1.close()
     return data
 
-#设定各个文件夹的路径,初始化数据
+#Initialize the data
 def load_file_data(main_dir1,street_file1,street_type_file1,city_file1,state_file1,country_file1,type_file1):
     global main_dir
     main_dir=main_dir1
@@ -80,7 +80,7 @@ def load_file_data(main_dir1,street_file1,street_type_file1,city_file1,state_fil
     city=open_file(city_file)
     
 
-#利用google搜索（type street city）关键字，解析后得到100个url
+#access google search engine with the key word (type streetname city name),extract 100 urls in results
 def acquire_url():
     city_name=city[0]
     search_keywords=[]
@@ -105,7 +105,7 @@ def acquire_url():
                     f.write('\n')
             f.close()
 
-#删除爬取的url和文件夹
+#delete urls
 def del_acquire_url():
     city_name=city[0]
     for t in types:
@@ -118,7 +118,7 @@ def del_acquire_url():
                     os.remove(path)
             os.rmdir(type_name)
 
-#多线程爬取100个url的内容（至少1/3成功爬取）
+#extract contant of the url
 def acquire_web():
     city_name=city[0]
     for t in types:
@@ -200,7 +200,7 @@ def acquire_web():
                 i+=1
             f.close()
 
-#删除爬取的网页内容和所提取的地址
+#delete contant of the url
 def del_acquire_web():
     city_name=city[0]
     for t in types:
@@ -217,7 +217,7 @@ def del_acquire_web():
                         os.remove(os.path.join(path1,p))
                 os.rmdir(path1)
 
-#提取爬取的100个网页内容中的地址
+#extract addresses from web contant
 def acquire_address():
     ae.load_file_data(street_file,street_type_file,city_file,state_file,country_file)
     city_name=city[0]
@@ -263,7 +263,7 @@ def acquire_address():
                 writer.writerow(a1)
             f2.close()
 
-#删除爬取的网页内容和所提取的地址
+#delete addresses
 def del_acquire_address():
     city_name=city[0]
     for t in types:
@@ -280,7 +280,7 @@ def del_acquire_address():
             if os.path.exists(path3): 
                 os.remove(path3)
 
-#合并提取的地址，去重，结果放在一个文件中
+#Merge the extracted address, the result in a file
 def address_types_csv():
     city_name=city[0]
     path0=main_dir+'/address_types.csv'

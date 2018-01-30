@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from open_webpage2 import *
 from web_page_prediction_model import *
 
-#解析谷歌网页中的网址
+#extract url in href tag of google search results
 def extract_url(href):
     url = href
     pattern = re.compile(r'(http[s]?://[^&]+)&', re.U | re.M)
@@ -24,7 +24,7 @@ def extract_url(href):
         url=url[length:]
     return url
 
-#对提取的title进行处理
+#deal with the title
 def extract_tittle(tmp_tittle,address_head):
     s=''+address_head+'.*'
     s1=' - .*'
@@ -37,7 +37,7 @@ def extract_tittle(tmp_tittle,address_head):
     res2=partten2.sub('',res1)
     return res2
 
-#提取谷歌搜索网页中的地图数据
+#Extract map data from Google search pages
 def extract_google_inf(html):
     inf=[]
     name=''
@@ -76,7 +76,7 @@ def extract_google_inf(html):
     inf.append(status)
     return inf
 
-#从搜索地址的结果中提取50个title，并对其进行处理，输出处理后的title
+#Extract 50 titles from the result of the search address and process them, and output the processed title(potential place name)
 def new_acquire_not_estate_tittles(address,city):
     address_head=''
     if address.split():
@@ -84,14 +84,14 @@ def new_acquire_not_estate_tittles(address,city):
     model=load_model()
     tittles={}
     results_per_page=50
-    query = urllib2.quote(address)#关键词编码
+    query = urllib2.quote(address)
     html=open_english_google(query,results_per_page)
     if html=='':
         return None
     soup = BeautifulSoup(html,'html.parser')
     street_addr=' '+city.lower()+'.*'
     parten=re.compile(street_addr)
-    for link in soup.find_all('h3',class_='r'):#寻找搜索结果的网址
+    for link in soup.find_all('h3',class_='r'):
         tmp_url = link.a["href"]
         tmp_tittle=link.a.get_text()
         tmped_url=extract_url(tmp_url)
@@ -116,6 +116,7 @@ def new_acquire_not_estate_tittles(address,city):
             titles.append(t3)
     return titles
 
+#use Google search engine to extract the correct place name based on potential place name and address
 def new_acquire_place_names_closed_inf(name_key,address,state):
     address_head=''
     if address.split():
@@ -125,7 +126,7 @@ def new_acquire_place_names_closed_inf(name_key,address,state):
     google_inf=['','','']
     tittles=[]
     results_per_page=10
-    query = urllib2.quote(name_key+' '+address)#关键词编码
+    query = urllib2.quote(name_key+' '+address)
     html=open_english_google(query,results_per_page)
     if html=='':
         return None,close,google_inf
@@ -134,7 +135,7 @@ def new_acquire_place_names_closed_inf(name_key,address,state):
     soup = BeautifulSoup(html,'html.parser')
     street_addr=' '+state.lower()+'.*'
     parten=re.compile(street_addr)
-    for link in soup.find_all('div',class_='g'):#寻找搜索结果的网址
+    for link in soup.find_all('div',class_='g'):
         url_title=link.find('h3',class_='r')
         if url_title:
             tmp_url = url_title.a["href"]

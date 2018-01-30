@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Aug 17 14:40:35 2017
-《《《《《《调用函数请先调用load_file_data，再调用其它函数》》》》》》
+《《《《《《 call the function load_file_data first, and then call other functions 》》》》》》
 @author: hadoop
 """
 import re
@@ -22,7 +22,7 @@ street_type=[]
 street_direction=[]
 max_street=0
     
-#创建街道字典
+#create street dictionary
 def create_street_dict(street_file,street_type_file):#获得街道字典、街道类型和街道方向矩阵、街道名最大长度
     street_direction=[['n','north'],['s','south'],['w','west'],['e','east']]
     street_type=[]
@@ -69,7 +69,7 @@ def create_street_dict(street_file,street_type_file):#获得街道字典、街�
     f2.close()
     return street,street_type,street_direction,max_street
 
-#导入城市数据
+#load city name
 def create_city_array(city_file):
     city=[]
     f=open(city_file,'r')
@@ -79,7 +79,7 @@ def create_city_array(city_file):
     f.close()
     return city
 
-#导入州数据
+#load state name
 def create_state_array(state_file):
     state=[]
     f=open(state_file,'r')
@@ -89,7 +89,7 @@ def create_state_array(state_file):
     f.close()
     return state
     
-#导入国家数据
+#load country name
 def create_country_array(country_file):
     country=[]
     f=open(country_file,'r')
@@ -99,7 +99,7 @@ def create_country_array(country_file):
     f.close()
     return country
 
-#设定各个文件夹的路径,初始化数据
+#Initialize the data
 def load_file_data(street_file1,street_type_file1,city_file1,state_file1,country_file1):
     global street_file
     street_file=street_file1
@@ -114,7 +114,7 @@ def load_file_data(street_file1,street_type_file1,city_file1,state_file1,country
     global street,street_type,street_direction,max_street
     street,street_type,street_direction,max_street=create_street_dict(street_file,street_type_file)#得到街道字典数据
 
-#解析街道地址，不包含单元号
+#extract address except extra information
 def address_extract3(path):
     addresses=[]
     city=create_city_array(city_file)
@@ -206,7 +206,7 @@ def address_extract3(path):
             addresses1.append(addres)
     return addresses1
 
-#解析街道地址，包含单元号
+#extract address contains extra information
 def address_extract4(path):
     addresses=[]
     city=create_city_array(city_file)

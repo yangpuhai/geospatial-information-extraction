@@ -6,7 +6,7 @@ Created on Thu Dec 21 21:56:58 2017
 """
 import acquire_addresses as acq_addr
 
-test_region_dir=['San Francisco2','Chicago2','New York2','Houston']
+test_region_dir=['Chicago','Houston']
 
 street_type_file='street_type'
 type_file='types'
@@ -18,7 +18,6 @@ def main():
         acq_addr.acquire_web()
         acq_addr.acquire_address()
         acq_addr.address_types_csv()
-
 
 
 if __name__ == '__main__':
